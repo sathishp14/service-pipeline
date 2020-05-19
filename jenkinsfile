@@ -1,0 +1,17 @@
+node{
+  stage ('Clone From Git') {
+
+    git url: 'https://github.com/ganeshdev1/service-pipeline.git'
+  }
+    stage('Continue Trigger')
+    {
+        cron('H */8 * * *') //regular builds
+        pollSCM('* * * * *') //polling for changes, here once a minute
+    } 
+   stage('Gradle Build')
+    {
+    def buildInfo=tool name: 'Gradle', type: 'gradle'
+    def rootDir="${buildInfo}/bin/gradle"
+    sh "${rootDir} clean build"
+    }
+    }
