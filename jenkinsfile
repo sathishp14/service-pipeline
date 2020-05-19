@@ -13,8 +13,7 @@ node{
      def gradleCMD = "${gradleHome}/bin/gradle"
      sh "${gradleCMD} clean build"
     }
-    
-  stage ("sending Artifat to another EC2 server) {
+   stage ("sending Artifat to another EC2 server) {
     sshPublisher(publishers: [sshPublisherDesc(configName: 'testserver', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/ubuntu/test
 sudo kill $(sudo lsof -t -i:8057)
 java -jar *.jar''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ubuntu/test', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'workspace/service-pipeline/*.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
