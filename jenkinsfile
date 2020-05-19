@@ -10,7 +10,7 @@ node{
     } 
    stage('Gradle Build')
     {
-    def buildInfo=tool name: 'Gradle', type: 'gradle'
+    def buildInfo=tool name: 'gradle', type: 'gradle'
     def rootDir="${buildInfo}/bin/gradle"
     sh "${rootDir} clean build"
     }
